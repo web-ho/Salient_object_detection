@@ -18,13 +18,12 @@ def get_image(img_path):
 
 def get_predictions(img, model, device):
     img = img2tensor(img).unsqueeze(axis=0)
-    model.eval()
-    model.to(device)
-    outputs = model(img.to(device))
-    pred = outputs[5][:,0,:,:]
-    pred = normPRED(pred)
-    pred = pred.squeeze().detach().cpu().numpy()
-    return pred
+    with torch.no_grad():
+        outputs = model(img.to(device))
+        pred = outputs[5][:,0,:,:]
+        pred = normPRED(pred)
+        pred = pred.squeeze().detach().cpu().numpy()
+        return pred
 
 def remove_bg(image, result):
     result[result > 0.5] = 1

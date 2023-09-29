@@ -1,7 +1,8 @@
 class config:
 
     seed = 29
-    epochs = 2
+    epochs = 500
+    pretrain_epochs = 20
     batch_sz = 2
 
     img_sz = 512, 512
